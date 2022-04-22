@@ -12,13 +12,15 @@ router.post("/signup", async (req, res) => {
         //encrypt new password
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
-
+        console.log("hash", hashPassword)
         //create new user
         const newUser = new User({
             username, email, password: hashPassword
         });
+        console.log("newUser", newUser)
 
         const user = await newUser.save();
+        console.log("user", user)
         res.status(200).json({
             message: 'registered successfully',
             userLoginDetails: user
